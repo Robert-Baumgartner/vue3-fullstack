@@ -1,0 +1,9 @@
+GET http://127.0.0.1:3000/api/albums
+###
+GET http://127.0.0.1:3000/api/artists
+###
+GET http://127.0.0.1:3000/api/albums/3/tracks
+###
+GET http://127.0.0.1:3000/api/playlists/1/tracks
+###
+GET http://127.0.0.1:3000/api/playlists

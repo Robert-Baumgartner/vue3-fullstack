@@ -1,0 +1,29 @@
+{
+  "name": "client",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.14.2",
+    "@types/node": "^18.0.1",
+    "axios": "^0.27.2",
+    "pinia": "^2.0.14",
+    "pinia-plugin-persistedstate": "^1.6.1",
+    "quasar": "^2.7.4",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.16"
+  },
+  "devDependencies": {
+    "@quasar/vite-plugin": "^1.0.10",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "sass": "^1.32.12",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.9",
+    "vite-tsconfig-paths": "^3.5.0",
+    "vue-tsc": "^0.35.2"
+  }
+}
