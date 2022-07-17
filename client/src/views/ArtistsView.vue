@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import SearchWidget from '../components/SearchWidget.vue';
 import { useMusicStore } from '../stores/musicStore';
 import { useMaxPages, useGetPage } from '../composables/pagination';
 

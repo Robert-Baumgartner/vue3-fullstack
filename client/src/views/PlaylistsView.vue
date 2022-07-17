@@ -5,7 +5,7 @@ import { useMusicStore } from '../stores/MusicStore';
 const promises = [];
 promises.push(useMusicStore().fetchPlaylists());
 promises.push(useMusicStore().fetchAlbums());
-await Promise.all(promises)
+await Promise.all(promises);
 const playlists = useMusicStore().playlists;
 const albums = useMusicStore().albums;
 
@@ -27,19 +27,23 @@ const columns: any = [
   {
     name: 'track',
     label: 'Track',
-    field: (row: any) => `${row.name}, ${row.length}`,
+    field: 'name',
     align: 'left',
-    style: 'width: 150px',
+  },
+  {
+    name: 'length',
+    label: 'Length',
+    field: 'length',
+    align: 'left',
   },
   {
     name: 'artist',
     label: 'Artist',
     field: 'artist',
     align: 'left',
-    style: 'width: 150px',
   },
   {
-    name: 'album',
+    name: 'title',
     label: 'Album Title',
     field: 'title',
     align: 'left',
@@ -81,38 +85,58 @@ const columns: any = [
   </q-tabs>
   <q-tab-panels class="q-mx-md" v-model="tab" animated>
     <q-tab-panel v-for="playlist in playlists" :name="playlist.name">
-      <q-table :rows="playlist.tracks" :columns="columns" row-key="index">
+      <q-table :rows="playlist.tracks" :columns="columns" row-key="index" wrap-cells>
         <template #header="props">
-          <q-tr :props="props">
+          <q-tr :props="props" class="gt-xs">
             <q-th v-for="col in props.cols" :key="col.name" :props="props">
               <span>{{ col.label }}</span>
             </q-th>
           </q-tr>
-        </template>
-        <template #body-cell-cover="props">
-          <q-td :props="props">
-            <img :src="props.value" height="80" />
-          </q-td>
+          <q-tr :props="props" class="lt-sm">
+            <q-th style="text-align:left">          <!-- Quasar bug, need to align once again-->
+              <span>{{ props.cols[0].label }}</span>
+            </q-th>
+            <q-th style="text-align:left">          <!-- Quasar bug, need to align once again-->
+              <span>{{ props.cols[1].label }}</span>
+            </q-th>
+            <q-th style="text-align:left">          <!-- Quasar bug, need to align once again-->
+              <span>{{ props.cols[2].label }}</span>
+            </q-th>
+          </q-tr>
         </template>
         <template #body-cell-track="props">
           <q-td :props="props">
-            <div style="width: 200px" class="text-secondary custom-ellipsis">
-              {{ props.value.split(',')[0] }}
+            <div class="text-secondary">
+              {{ props.value }}
             </div>
-            <br />
-            <div>{{ props.value.split(',')[1] }}</div>
+          </q-td>
+        </template>
+        <template #body-cell-length="props">
+          <q-td :props="props">
+            <div>
+              {{ props.value }}
+            </div>
           </q-td>
         </template>
         <template #body-cell-artist="props">
           <q-td :props="props">
-            <div style="width: 200px" class="text-primary custom-ellipsis">{{ props.value }}</div>
-            <br />
+            <div class="text-primary">{{ props.value }}</div>
+          </q-td>
+        </template>
+
+        <template #body-cell-genre="props">
+          <q-td :props="props" class="gt-xs">
+            <div class="text-primary">{{ props.value }}</div>
+          </q-td>
+        </template>
+        <template #body-cell-cover="props">
+          <q-td :props="props" class="gt-xs">
+            <img :src="props.value" height="80" />
           </q-td>
         </template>
         <template #body-cell-title="props">
-          <q-td :props="props">
-            <div style="width: 200px" class="text-primary custom-ellipsis">{{ props.value }}</div>
-            <br />
+          <q-td :props="props" class="gt-xs">
+            <div>{{ props.value }}</div>
           </q-td>
         </template>
       </q-table>
