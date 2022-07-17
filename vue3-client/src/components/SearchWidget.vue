@@ -11,9 +11,10 @@ const toggleSearch = () => {
 </script>
 
 <template>
-  <div class="row items-center">
+  <div v-if="$route.path != '/' && $route.path != '/home'" class="row items-center">
     <q-input dense v-if="searchVisible" v-model="useMusicStore().searchTerm"  />
     <q-icon @click="toggleSearch" name="search" class="text-h5 q-mr-sm"></q-icon>
+
   </div>
 </template>
 
