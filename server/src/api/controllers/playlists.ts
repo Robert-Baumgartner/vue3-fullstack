@@ -8,6 +8,7 @@ const getPlaylists = async (req: Request, res: Response): Promise<void> => {
   const promises = [];
   for (let i = 0; i < playlists.length; i++) promises.push(dbGetPlaylistTracks(playlists[i].id));
   const tracks = await Promise.all(promises);
+
   for (let i = 0; i < playlists.length; i++) playlists[i].tracks = tracks[i];
 
   res.status(200).json(playlists);

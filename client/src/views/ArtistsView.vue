@@ -5,8 +5,10 @@ import { useMusicStore } from '../stores/musicStore';
 import { useMaxPages, useGetPage } from '../composables/pagination';
 
 const musicStore = useMusicStore();
-await musicStore.fetchArtists();
-await musicStore.fetchAlbums();
+const promises = [];
+promises.push(useMusicStore().fetchArtists());
+promises.push(useMusicStore().fetchAlbums());
+await Promise.all(promises)
 
 const PAGE_SIZE = 15;
 

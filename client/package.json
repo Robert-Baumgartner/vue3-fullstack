@@ -24,6 +24,6 @@
     "typescript": "^4.5.4",
     "vite": "^2.9.9",
     "vite-tsconfig-paths": "^3.5.0",
-    "vue-tsc": "^0.35.2"
+    "vue-tsc": "^0.38.5"
   }
 }

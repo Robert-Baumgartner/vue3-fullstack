@@ -1,5 +1,6 @@
 import { query } from '../../db/query';
 import { Playlist, Track } from '../types';
+import { milliSecondsToHHMMSS } from '../utils/time';
 
 const dbGetPlaylist = async (id: number): Promise<Playlist> => {
   const { rows } = await query(
@@ -46,7 +47,7 @@ const dbGetPlaylistTracks = async (id: number): Promise<Track[]> => {
      ORDER BY t.name`,
     [String(id)],
   );
-  return rows;
+  return rows.map((el) => ({ ...el, length: milliSecondsToHHMMSS(parseInt(el.length, 10)) }));
 };
 
 export { dbGetPlaylist, dbGetPlaylists, dbGetPlaylistTracks };

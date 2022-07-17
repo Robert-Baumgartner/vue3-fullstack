@@ -1,22 +1,22 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Album } from '@backend/types';
 import { useMusicStore } from '../stores/MusicStore';
-console.log("using Playlist init")
 
-await useMusicStore().fetchPlaylists();
-await useMusicStore().fetchAlbums();
+const promises = [];
+promises.push(useMusicStore().fetchPlaylists());
+promises.push(useMusicStore().fetchAlbums());
+await Promise.all(promises)
 const playlists = useMusicStore().playlists;
 const albums = useMusicStore().albums;
 
 for (let playlist of playlists) {
   playlist.tracks = playlist.tracks.map((track) => {
-    const { title, cover, artist } = <Album>albums.find((album) => album.id === track.album_id);
+    const { title, artist, cover } = albums.find((album) => album.id === track.album_id)!;
     return {
       ...track,
       title,
-      cover,
       artist,
+      cover,
     };
   });
 }
@@ -27,14 +27,16 @@ const columns: any = [
   {
     name: 'track',
     label: 'Track',
-    field: 'name',
+    field: (row: any) => `${row.name}, ${row.length}`,
     align: 'left',
+    style: 'width: 150px',
   },
   {
     name: 'artist',
     label: 'Artist',
     field: 'artist',
     align: 'left',
+    style: 'width: 150px',
   },
   {
     name: 'album',
@@ -46,19 +48,15 @@ const columns: any = [
     name: 'cover',
     label: 'Album Cover',
     field: 'cover',
-    align: 'left',
+    align: 'center',
+    style: 'width: 150px',
   },
   {
     name: 'genre',
     label: 'Genre',
     field: 'genre',
     align: 'left',
-  },
-  {
-    name: 'length',
-    label: 'Length',
-    field: 'length',
-    align: 'left',
+    style: 'gt-xs',
   },
 ];
 </script>
@@ -93,17 +91,28 @@ const columns: any = [
         </template>
         <template #body-cell-cover="props">
           <q-td :props="props">
-            <img :src="props.value" height="70" />
+            <img :src="props.value" height="80" />
           </q-td>
         </template>
         <template #body-cell-track="props">
           <q-td :props="props">
-            <span class="text-secondary"> {{ props.value }} </span>
+            <div style="width: 200px" class="text-secondary custom-ellipsis">
+              {{ props.value.split(',')[0] }}
+            </div>
+            <br />
+            <div>{{ props.value.split(',')[1] }}</div>
           </q-td>
         </template>
         <template #body-cell-artist="props">
           <q-td :props="props">
-            <span class="text-primary"> {{ props.value }} </span>
+            <div style="width: 200px" class="text-primary custom-ellipsis">{{ props.value }}</div>
+            <br />
+          </q-td>
+        </template>
+        <template #body-cell-title="props">
+          <q-td :props="props">
+            <div style="width: 200px" class="text-primary custom-ellipsis">{{ props.value }}</div>
+            <br />
           </q-td>
         </template>
       </q-table>
@@ -112,4 +121,8 @@ const columns: any = [
 </template>
 
 <style lang="sass">
+.custom-ellipsis
+  text-overflow: ellipsis !important
+  white-space: nowrap !important
+  overflow: hidden !important
 </style>

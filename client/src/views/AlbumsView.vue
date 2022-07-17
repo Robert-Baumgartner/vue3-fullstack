@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import SearchWidget from '../components/SearchWidget.vue';
 import { useMusicStore } from '../stores/musicStore';
 import { useMaxPages, useGetPage } from '../composables/pagination';
 
@@ -11,9 +10,9 @@ const PAGE_SIZE = 10;
 let maxPages = ref(useMaxPages(musicStore.albums, PAGE_SIZE));
 
 let current = ref(1);
-let dialog = ref(false);
+let dialogCover = ref(false);
+let dialogMore = ref(false);
 let albumCover = ref('');
-
 
 const currentAlbums = computed(() => {
   const albums = musicStore.albums.filter((el) =>
@@ -32,7 +31,7 @@ const limitDisplayString = (str: string, limit: number) => {
 
 const showCover = (cover: string) => {
   albumCover.value = cover;
-  dialog.value = true;
+  dialogCover.value = true;
 };
 </script>
 
@@ -58,12 +57,22 @@ const showCover = (cover: string) => {
         </q-card-section>
       </div>
       <q-card-actions>
-        <q-btn flat>More...</q-btn>
+        <q-btn @click="dialogMore = true" flat>More...</q-btn>
       </q-card-actions>
     </q-card>
-    <q-dialog v-model="dialog">
-      <q-card @click="dialog = false" class="lightbox">
+    <q-dialog v-model="dialogCover">
+      <q-card @click="dialogCover = false" class="lightbox">
         <q-img fit="contain" :src="albumCover" />
+      </q-card>
+    </q-dialog>
+    <q-dialog v-model="dialogMore">
+      <q-card @click="dialogMore = false" class="q-pa-sm">
+        <q-card-section>
+          <div class="text-subtitle1 text-secondary">Sorry, not implemented yet...</div>
+        </q-card-section>
+        <q-card-actions align="center">
+          <q-btn @click="dialogMore = false" flat>Close</q-btn>
+        </q-card-actions>
       </q-card>
     </q-dialog>
   </div>

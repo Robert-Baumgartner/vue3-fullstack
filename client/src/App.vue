@@ -41,7 +41,7 @@ $q.dark.toggle();
       </router-view>
     </q-page-container>
 
-    <q-footer class="bg-dark">
+    <q-footer class="bg-dark gt-xs">
       <q-toolbar class="row justify-center">
         <span class="text-grey">Demo App by Robert Baumgartner</span>
       </q-toolbar>
