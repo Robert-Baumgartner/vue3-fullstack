@@ -3,7 +3,7 @@
 <template>
   <div class="column items-center justify-center q-mt-lg">
     <p class="text-h5 text-center text-uppercase">experience the music!</p>
-  <q-img src="@/assets/boy_with_headphones.jpg" spinner-color="white" />
+    <q-img loading="eager" src="/boy_with_headphones.jpg" />
   </div>
 </template>
 
@@ -11,3 +11,4 @@
 .q-img
   max-width: 1024px
 </style>
+

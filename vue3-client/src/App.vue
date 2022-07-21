@@ -11,9 +11,9 @@ $q.dark.toggle();
   <q-layout view="hHh lpR fFf">
     <q-header class="bg-dark">
       <q-toolbar class="q-mt-md">
-        <q-toolbar-title>
-          <q-avatar size="70px"> <img src="@/assets/logo1.svg" /> </q-avatar>
-          <span class="text-h4 q-ml-md" style="font-family: Lora">Songbird</span>
+        <q-toolbar-title class="row items-center q-ml-lg" style="height: 70px">
+          <img src="@/assets/logo1.svg" width="70" height="70" class="gt-xs q-mr-md" />
+          <span class="text-h4 q-ml-xs" style="font-family: Lora, serif">Songbird</span>
         </q-toolbar-title>
         <SearchWidget header="Search Artists" @search=""></SearchWidget>
       </q-toolbar>
@@ -56,7 +56,8 @@ $q.dark.toggle();
   font-style: normal
   font-display: auto
   unicode-range: U+000-5FF
-  src: local('Lora'), url('/fonts/Lora/Lora-Italic.ttf') format('truetype')
+  src: url('/fonts/Lora/Lora-Italic.ttf') format('truetype')
+  font-display: swap
 
 .q-input
   max-width: 300px
